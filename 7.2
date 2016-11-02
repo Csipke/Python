@@ -1,0 +1,22 @@
+# Write a program that prompts for a file name, then opens that file
+# and reads through the file, looking for lines of the form:
+# X-DSPAM-Confidence:    0.8475
+# Count these lines and extract the floating point values from each
+# of the lines and compute the average of those values and produce an output as shown below.
+# Do not use the sum() function or a variable named sum in your solution.
+
+# Use the file name mbox-short.txt as the file name
+
+fname = raw_input("Enter file name: ")           # fájlnév bekérése
+fh = open(fname)                                 # fájl megnyitása
+count = 0                                        # 0-ról indulunk
+total = 0
+average = 0
+for line in fh:
+    if not line.startswith("X-DSPAM-Confidence:") : # ha nem a megadott szöveggel kezdődik, folytassuk
+        continue 
+    count = count + 1                               # ha igen, akkor szedjük őket össe
+    numbers = float(line[21:])                      # 'X-DSPAM-Confidence: ' -> 20 karakter. A 21. karaktertől számmá alakítjuk
+    total = numbers + total                         # összeadogatjuk
+average = total/count                               # átlag: a számok összge/a megtalált X-es kifejezések
+print 'Average spam confidence:',average            # eredméyn kiíratása
