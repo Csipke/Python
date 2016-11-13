@@ -1,0 +1,19 @@
+# 8.4 Open the file romeo.txt and read it line by line. 
+# For each line, split the line into a list of words using the split() method. 
+# The program should build a list of words. 
+# For each word on each line check to see if the word is already in the list and if not append it to the list.
+# When the program completes, sort and print the resulting words in alphabetical order.
+
+# You can download the sample data at http://www.pythonlearn.com/code/romeo.txt
+
+
+
+fname = raw_input("Enter file name: ")  # bekérjük a fájlnevet
+fh = open(fname)                        # megnyitjuk
+lst = list()                            # készítünk egy listát (ebbe tesszük majd a szavakat)
+for line in fh:
+    for i in line.split():              # sorokat szavakra bontjuk
+        if not i in lst:                # ami még nincs a listában,                        
+        	lst.append(i)                 # hozzáadjuk
+lst.sort()	                            # abc-be rendezzük
+print lst                               # kiíratjuk
