@@ -22,7 +22,7 @@
 
 # The program can be speeded up greatly by moving the commit operation outside of the loop. In any database program, there is a balance between the number of operations you execute between commits and the importance of not losing the results of operations that have not yet been committed. 
 
-# Solution: 
+# Solution: (emaildborg.py)
 # Counts:
 # ('iupui.edu', 536)
 # ('umich.edu', 491)
