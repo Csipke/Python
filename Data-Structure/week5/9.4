@@ -1,0 +1,37 @@
+# 9.4 Write a program to read through the mbox-short.txt 
+# and figure out who has the sent the greatest number of mail messages.
+# The program looks for 'From ' lines and takes the second word of those lines
+# as the person who sent the mail. 
+# The program creates a Python dictionary that maps the sender's mail address
+# to a count of the number of times they appear in the file. 
+# After the dictionary is produced, the program reads through the dictionary
+# using a maximum loop to find the most prolific committer.
+
+name = raw_input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+
+counts = dict()
+ 
+for line in handle:
+    if not line.startswith('From:'): continue                   # meg kell keresni a 'From'-mal kezdodoeket,
+    words = line.split()                                        # ki kell vagni a szavakat
+    counts[words[1]] = counts.get(words[1], 0) +1               # a masodik lesz az email,ezt minden alkalommal betesszuk a dict-be (+1)
+
+maxC = None                                                     # megkeressuk azt az emailt, amibol a legtobb van
+maxE = None
+
+for email, count in counts.items():                             # megszamoljuk az emailcimeket a countsban
+      
+    if maxC < count:                                            # ha maxC kevesebb, mint ami eddig  a countsban volt
+        maxC = count                                            # akkor a counts erteke lesz az uj ertek (pl. gopal = 1, louis = 3, az uj ertek = 3 
+        maxE = email                                            # maxC = legtobb email darabszama, maxE = a hozza tartozo emailcim
+print maxE, maxC
+
+"""
+counts:
+{'gopal.ramasammycook@gmail.com': 1, 'louis@media.berkeley.edu': 3,
+'cwen@iupui.edu': 5, 'antranig@caret.cam.ac.uk': 1, 'rjlowe@iupui.edu': 2, 
+'gsilver@umich.edu': 3, 'david.horwitz@uct.ac.za': 4, 'wagnermr@iupui.edu': 1,
+'zqian@umich.edu': 4, 'stephen.marquard@uct.ac.za': 2, 'ray@media.berkeley.edu': 1}
+cwen@iupui.edu 5"""
