@@ -1,0 +1,44 @@
+"""10.2 Write a program to read through the mbox-short.txt and figure out the distribution by hour of the day for each of the messages.
+You can pull the hour out from the 'From ' line by finding the time and then splitting the string a second time using a colon.
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Once you have accumulated the counts for each hour, print out the counts, sorted by hour as shown below."""
+
+name = raw_input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+
+counts = dict()
+
+for line in handle:
+    line = line.rstrip()
+    if line == "": continue                         # kihagyjuk az üres sorokat
+    words = line.split()
+    if words[0] != 'From' : continue                # kihagyjuk ami nem From-mal kezdődik
+    time = words[5].split(':')                      # a hatodik szóból(idő) kivágjuk az első kettőspontig tartó részt(óra)
+    counts[time[0]] = counts.get(time[0], 0) + 1    # betesszük  counts-ba, annyiszor, ahányszor előfordul
+lista = list()
+for key, value in counts.items():                   # készítünk egy listát: kulcs, érték szerint, beletesszük a counts elemeit
+    lista.append((key, value))                      # key: az óra, value: ahányszor előfordul
+lista.sort()                                        # sorbarendezzük
+for hour, count in lista:                           # kiírjuk
+    print hour, count
+    
+"""
+lista elemei:
+[('11', 6), ('10', 3), ('15', 2), ('14', 1), ('04', 3), ('16', 4), ('19', 1), ('18', 1), ('09', 2), ('17', 2), ('06', 1), ('07', 1)]"""
+"""
+Eredmény:
+
+04 3
+06 1
+07 1
+09 2
+10 3
+11 6
+14 1
+15 2
+16 4
+17 2
+18 1
+19 1
+"""
